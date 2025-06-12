@@ -1,16 +1,19 @@
 'use client';
-import { Button, Navbar, TextInput, NavbarLink,
+import {
+  Button, Navbar, TextInput, NavbarLink,
   NavbarCollapse, NavbarToggle,
-  } from 'flowbite-react';
+} from 'flowbite-react';
 import Link from 'next/link';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { dark, light } from '@clerk/themes';
 
 export default function Header() {
   const path = usePathname();
-  const {theme, setTheme} = useTheme()
+  const { theme, setTheme } = useTheme()
 
 
 
@@ -34,14 +37,24 @@ export default function Header() {
         <AiOutlineSearch />
       </Button>
       <div className='flex gap-2 md:order-2'>
-        <Button className='w-12 h-10 hidden sm:inline' color='gray' pill onClick={() => setTheme(theme === 'light'?'dark' : 'light')}>
+        <Button className='w-12 h-10 hidden sm:inline' color='gray' pill onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
           {
-            theme === 'light' ? <FaSun></FaSun>:  <FaMoon></FaMoon>
+            theme === 'light' ? <FaSun></FaSun> : <FaMoon></FaMoon>
           }
-        
+
         </Button>
-        <Link href='/sign-in' ><Button className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Sign In</Button></Link>
-         <NavbarToggle />
+        <SignedIn>
+          <UserButton appearance={{
+            baseTheme: theme === 'light' ? light : dark
+          }}></UserButton>
+        </SignedIn>
+        <SignedOut>
+          <Link href='/sign-in'><Button className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white' as='div'>Sign In</Button></Link>
+          
+
+        </SignedOut>
+
+        <NavbarToggle />
 
       </div>
 
