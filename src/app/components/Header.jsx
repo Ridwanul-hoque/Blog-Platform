@@ -74,6 +74,11 @@ export default function Header() {
             Projects
           </NavbarLink>
         </Link>
+        <Link href='/dashboard'>
+          <NavbarLink active={path === '/dashboard'} as={'div'}>
+            Dashboard
+          </NavbarLink>
+        </Link>
       </NavbarCollapse>
 
 

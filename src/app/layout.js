@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import { ThemeModeScript, ThemeProvider } from "flowbite-react";
 import ThemeComponent from "./components/ThemeComponent";
 import { ClerkProvider } from "@clerk/nextjs"
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,21 +24,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning >
+      <html lang='en' suppressHydrationWarning>
         <head>
-          <ThemeModeScript></ThemeModeScript>
+          <ThemeModeScript />
         </head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-
-
           <ThemeProvider>
             <ThemeComponent>
-              <Header></Header>
+              <Header />
               {children}
+              <Footer />
             </ThemeComponent>
-
           </ThemeProvider>
         </body>
       </html>
